@@ -15,6 +15,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
 
 public class LoginTest {
 	private WebDriver driver;
@@ -28,8 +31,9 @@ public class LoginTest {
 	public void setUp() throws Exception {
 		logger.debug("Start setup");
 		driver = new FirefoxDriver();
-		baseUrl = "http://www.leantrips.com/";
+		baseUrl = "http://www.leantrips.com";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
 	}
 
 	@Test
@@ -37,6 +41,8 @@ public class LoginTest {
 		logger.debug("Start testLogin");
 
 		driver.get(baseUrl + "/");
+WebElement myDynamicElement = (new WebDriverWait(driver, 40))
+  .until(ExpectedConditions.presenceOfElementLocated(By.linkText("Log In")));
 		driver.findElement(By.linkText("Log In")).click();
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
